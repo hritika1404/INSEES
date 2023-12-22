@@ -1,32 +1,26 @@
 package com.example.insees
 
 import android.os.Bundle
+import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.insees.databinding.FragmentSignUpBinding
+import com.google.firebase.auth.FirebaseAuth
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SignUpFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SignUpFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    private lateinit var auth: FirebaseAuth
+    private lateinit var binding: FragmentSignUpBinding
+    private lateinit var navController: NavController
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
     }
 
     override fun onCreateView(
@@ -34,26 +28,51 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign_up, container, false)
+        binding = FragmentSignUpBinding.inflate(inflater,container,false)
+
+        binding.btnNextSignUp.setOnClickListener {
+            if (checkAllFields()) {
+                navController.navigate(R.id.action_signUpFragment_to_completeProfileFragment)
+            }
+        }
+
+        binding.tvLogin.setOnClickListener{
+            navController.navigate(R.id.action_signUpFragment_to_loginFragment)
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SignUpFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SignUpFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun checkAllFields(): Boolean{
+        val email = binding.etEmailSignup.text.toString()
+        if (email == ""){
+            binding.etEmailSignupLayout.error = "This is required field"
+            return false
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            binding.etEmailSignupLayout.error = "Please enter a valid Email"
+            return false
+        }
+
+        if(binding.etPasswordSignup.text.toString() == ""){
+            binding.etPasswordSignupLayout.error = "This is required field"
+            binding.etConfirmPasswordLayout.errorIconDrawable = null
+            return false
+        }
+
+        if(binding.etConfirmPassword.text.toString() == ""){
+            binding.etConfirmPasswordLayout.error = "This is required field"
+            binding.etPasswordSignupLayout.errorIconDrawable = null
+            return false
+        }
+
+        if(binding.etPasswordSignup.text.toString() != binding.etConfirmPassword.text.toString()){
+            binding.etPasswordSignupLayout.error = "Password do not match"
+            binding.etConfirmPasswordLayout.errorIconDrawable = null
+            return false
+        }
+        return true
     }
+
 }
