@@ -10,7 +10,10 @@ import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.insees.databinding.FragmentSignUpBinding
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
 
 class SignUpFragment : Fragment() {
 
@@ -30,9 +33,11 @@ class SignUpFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSignUpBinding.inflate(inflater,container,false)
 
+        auth = FirebaseAuth.getInstance()
+
         binding.btnNextSignUp.setOnClickListener {
             if (checkAllFields()) {
-                navController.navigate(R.id.action_signUpFragment_to_completeProfileFragment)
+                signUp(binding.etEmailSignup.text.toString(),binding.etPasswordSignup.text.toString())
             }
         }
 
@@ -57,22 +62,33 @@ class SignUpFragment : Fragment() {
 
         if(binding.etPasswordSignup.text.toString() == ""){
             binding.etPasswordSignupLayout.error = "This is required field"
-            binding.etConfirmPasswordLayout.errorIconDrawable = null
             return false
         }
 
         if(binding.etConfirmPassword.text.toString() == ""){
             binding.etConfirmPasswordLayout.error = "This is required field"
-            binding.etPasswordSignupLayout.errorIconDrawable = null
             return false
         }
 
         if(binding.etPasswordSignup.text.toString() != binding.etConfirmPassword.text.toString()){
             binding.etPasswordSignupLayout.error = "Password do not match"
-            binding.etConfirmPasswordLayout.errorIconDrawable = null
             return false
         }
         return true
+    }
+
+    private fun signUp(email: String, password:String){
+        auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener{task->
+            if(task.isSuccessful){
+                navController.navigate(R.id.action_signUpFragment_to_completeProfileFragment)
+            }else{
+                Toast.makeText(
+                    context,
+                    "SignUp failed.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
     }
 
 }
