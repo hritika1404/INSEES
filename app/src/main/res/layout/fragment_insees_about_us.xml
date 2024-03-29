@@ -70,7 +70,7 @@
             android:text="INSEES"
             android:textColor="@android:color/white"
             android:layout_marginRight="25dp"
-            android:textSize="32dp"
+            android:textSize="32sp"
             android:textStyle="bold" />
     </LinearLayout>
 
