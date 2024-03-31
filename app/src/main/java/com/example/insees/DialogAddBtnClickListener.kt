@@ -14,6 +14,4 @@ interface DialogAddBtnClickListener {
         todoDate: String,
         todoDateEt: TextView
     )
-
-
 }
