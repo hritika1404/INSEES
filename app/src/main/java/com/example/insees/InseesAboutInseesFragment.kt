@@ -1,24 +1,17 @@
 package com.example.insees
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.GridView
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.insees.Dataclasses.GridViewModal
 import com.example.insees.databinding.FragmentInseesAboutInseesBinding
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
-/**
- * A simple [Fragment] subclass.
- * Use the [InseesAboutInseesFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class InseesAboutInseesFragment : Fragment() {
     lateinit var MemberGRV: GridView
     lateinit var MemberList: List<GridViewModal>
