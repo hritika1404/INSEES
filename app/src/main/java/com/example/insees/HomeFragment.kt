@@ -84,7 +84,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             if(userData.exists())
             {
                 val name = userData.child("name").getValue(String::class.java)
-                val profilePhoto = userData.child("profile_photo").getValue(Uri::class.java)
+                val profilePhoto = userData.child("profile_photo").getValue(String::class.java)?.let { Uri.parse(it) }
                 var userName = name
                 userName = "Hello $userName"
                 binding.tvHello.text = userName
