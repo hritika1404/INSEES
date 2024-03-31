@@ -30,6 +30,15 @@ class InseesAboutUsFragment : Fragment() {
         binding.inseesLayout.setOnClickListener{
             navController.navigate(R.id.action_inseesAboutUsFragment_to_inseesAboutInseesFragment)
         }
+
+        binding.aboutMembers.setOnClickListener {
+            navController.navigate(R.id.action_inseesAboutUsFragment_to_aboutMembersFragment)
+        }
+
+        binding.imageButton.setOnClickListener {
+            navController.navigate(R.id.action_inseesAboutUsFragment_to_aboutMembersFragment)
+        }
+
         return binding.root
     }
 
