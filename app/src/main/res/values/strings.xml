@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">INSEES</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_ankit" />
     <string name="good_wishes" />
@@ -26,4 +25,12 @@
     <string name="t">TODO</string>
     <string name="log_out">Log Out</string>
     <string name="back_to_home_screen">Back to Home Screen</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="email_id">Email ID</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login">Login</string>
+    <string name="login1">Login</string>
+    <string name="create_a_new_account">Create a new account</string>
+    <string name="new_user">New User?</string>
 </resources>
