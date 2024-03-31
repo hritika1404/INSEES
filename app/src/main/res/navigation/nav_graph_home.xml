@@ -66,6 +66,9 @@
         <action
             android:id="@+id/action_inseesAboutUsFragment_to_inseesAboutInseesFragment"
             app:destination="@id/inseesAboutInseesFragment" />
+        <action
+            android:id="@+id/action_inseesAboutUsFragment_to_aboutMembersFragment"
+            app:destination="@id/aboutMembersFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -76,4 +79,9 @@
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutMembersFragment"
+        android:name="com.example.insees.AboutMembersFragment"
+        android:label="fragment_about_members"
+        tools:layout="@layout/fragment_about_members" />
 </navigation>

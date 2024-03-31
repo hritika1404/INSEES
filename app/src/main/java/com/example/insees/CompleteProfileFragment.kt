@@ -1,11 +1,12 @@
 package com.example.insees
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -16,14 +17,19 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.insees.databinding.FragmentCompleteProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.lang.ref.WeakReference
 
-@Suppress("DEPRECATION")
 class CompleteProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentCompleteProfileBinding
@@ -62,6 +68,7 @@ class CompleteProfileFragment : Fragment() {
 
         binding.uploadImage.setOnClickListener {
             galleryLauncher.launch("image/*")
+
         }
 
         binding.btnNextCompleteProfile.setOnClickListener {
@@ -104,11 +111,21 @@ class CompleteProfileFragment : Fragment() {
                     // Handle the captured image bitmap
                     binding.profilePhoto.apply {
                         visibility= View.VISIBLE
-                        setImageBitmap(selectedImageBitmap)
-                        profilePhoto = selectedImageBitmap.toString()
+
+                        val result  = WeakReference<Bitmap>(Bitmap.createScaledBitmap(selectedImageBitmap,
+                            selectedImageBitmap.height, selectedImageBitmap.width, false).copy(
+                                Bitmap.Config.RGB_565, true
+                            )).get()
+
+                        setImageBitmap(result)
+
+                        val imageUri = result?.let { saveImage(it, context) }
+
+                        profilePhoto = imageUri.toString()
                     }
                 }
             }
+
 
         galleryLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
@@ -120,7 +137,6 @@ class CompleteProfileFragment : Fragment() {
             }
     }
 
-    @SuppressLint("QueryPermissionsNeeded")
     private fun openCamera() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         if (takePictureIntent.resolveActivity(requireActivity().packageManager) != null) {
@@ -170,7 +186,6 @@ class CompleteProfileFragment : Fragment() {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
-    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -184,6 +199,27 @@ class CompleteProfileFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun saveImage(image:Bitmap,context:Context ): Uri {
+
+        val imagesFolder = File(context.cacheDir, "images")
+        lateinit var uri: Uri
+        try{
+            imagesFolder.mkdir()
+            val file = File(imagesFolder, "captured_image.jpg")
+            val stream = FileOutputStream(file)
+            image.compress(Bitmap.CompressFormat.JPEG , 100, stream)
+            stream.flush()
+            stream.close()
+            uri = FileProvider.getUriForFile(context.applicationContext, "com.example.insees"+".provider", file)
+        }
+        catch (e:FileNotFoundException){
+            e.printStackTrace()
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+        return uri
     }
 
 }

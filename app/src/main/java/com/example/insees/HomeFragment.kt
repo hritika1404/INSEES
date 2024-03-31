@@ -1,5 +1,6 @@
 package com.example.insees
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,9 +84,11 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             if(userData.exists())
             {
                 val name = userData.child("name").getValue(String::class.java)
+                val profilePhoto = userData.child("profile_photo").getValue(Uri::class.java)
                 var userName = name
                 userName = "Hello $userName"
                 binding.tvHello.text = userName
+                binding.btnProfile.setImageURI(profilePhoto)
             }
             else
             {
