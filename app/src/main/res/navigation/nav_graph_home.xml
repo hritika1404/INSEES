@@ -11,8 +11,8 @@
         android:label="fragment_todo"
         tools:layout="@layout/fragment_todo" >
         <action
-            android:id="@+id/action_todoFragment_to_semesterFragment"
-            app:destination="@id/semesterFragment" />
+            android:id="@+id/action_todoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/semesterFragment"
@@ -20,8 +20,8 @@
         android:label="fragment_semester"
         tools:layout="@layout/fragment_semester" >
         <action
-            android:id="@+id/action_semesterFragment_to_todoFragment"
-            app:destination="@id/todoFragment" />
+            android:id="@+id/action_semesterFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <dialog
         android:id="@+id/popUpFragment"
@@ -39,12 +39,25 @@
         <action
             android:id="@+id/action_homeFragment_to_popUpFragment"
             app:destination="@id/popUpFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_semesterFragment"
+            app:destination="@id/semesterFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_inseesAboutInseesFragment"
+            app:destination="@id/inseesAboutInseesFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/inseesAboutInseesFragment"
         android:name="com.example.insees.InseesAboutInseesFragment"
         android:label="fragment_insees_about_insees"
-        tools:layout="@layout/fragment_insees_about_insees" />
+        tools:layout="@layout/fragment_insees_about_insees" >
+        <action
+            android:id="@+id/action_inseesAboutInseesFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inseesAboutUsFragment"
         android:name="com.example.insees.InseesAboutUsFragment"
@@ -53,5 +66,14 @@
         <action
             android:id="@+id/action_inseesAboutUsFragment_to_inseesAboutInseesFragment"
             app:destination="@id/inseesAboutInseesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.insees.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

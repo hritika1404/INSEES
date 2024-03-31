@@ -34,7 +34,7 @@ class SemesterFragment : Fragment() {
 
 
         binding.btnSemesterBack.setOnClickListener {
-            findNavController().navigate(R.id.action_semesterFragment_to_todoFragment)
+            findNavController().navigate(R.id.action_semesterFragment_to_homeFragment)
         }
 
     }

@@ -24,4 +24,6 @@
     <string name="insees">INSEES</string>
     <string name="members">Members</string>
     <string name="t">TODO</string>
+    <string name="log_out">Log Out</string>
+    <string name="back_to_home_screen">Back to Home Screen</string>
 </resources>
