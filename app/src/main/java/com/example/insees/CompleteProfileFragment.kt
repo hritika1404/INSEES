@@ -75,6 +75,12 @@ class CompleteProfileFragment : Fragment() {
             signUp(email, password)
         }
 
+        binding.closeImage.setOnClickListener{
+            profilePhoto = ""
+            binding.profilePhoto.visibility = View.INVISIBLE
+            binding.profileLayout.visibility = View.VISIBLE
+        }
+
         return binding.root
     }
 
@@ -108,6 +114,9 @@ class CompleteProfileFragment : Fragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     val selectedImageBitmap =
                         result.data?.extras?.get("data") as Bitmap
+
+                    binding.profileLayout.visibility = View.INVISIBLE
+
                     // Handle the captured image bitmap
                     binding.profilePhoto.apply {
                         visibility= View.VISIBLE
@@ -129,6 +138,7 @@ class CompleteProfileFragment : Fragment() {
 
         galleryLauncher =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+                binding.profileLayout.visibility = View.INVISIBLE
                 binding.profilePhoto.apply {
                     visibility= View.VISIBLE
                     setImageURI(uri)
