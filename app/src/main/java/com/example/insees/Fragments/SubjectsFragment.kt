@@ -15,25 +15,13 @@ import com.example.insees.Utils.SubjectAdapter
 
 class SubjectsFragment : Fragment() {
 
-    companion object {
-        private const val ARG_SELECTED_SEMESTER = "selected_semester"
-
-        fun newInstance(selectedSemester: String): SubjectsFragment {
-            val fragment = SubjectsFragment()
-            val args = Bundle()
-            args.putString(ARG_SELECTED_SEMESTER, selectedSemester)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     private lateinit var subjectListView: ListView
     private lateinit var selectedSemester: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            selectedSemester = it.getString(ARG_SELECTED_SEMESTER, "")
+            selectedSemester = it.getString("selected_semester", "")
         }
     }
 

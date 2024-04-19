@@ -37,14 +37,10 @@ class SemesterFragment : Fragment() {
         semesterListView.onItemClickListener =
             AdapterView.OnItemClickListener { _, _, position, _ ->
                 val selectedSemester = semesters[position]
-                val subjectsFragment = SubjectsFragment.newInstance(selectedSemester)
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .replace(R.id.nav_host_fragment_home, subjectsFragment)
-                    .addToBackStack(null)
-                    .commit()
+                findNavController().navigate(R.id.action_semesterFragment_to_subjectsFragment, Bundle().apply {
+                    putString("selected_semester", selectedSemester)
+                })
             }
-        binding.btnSemesterBack.setOnClickListener {
-            findNavController().navigate(R.id.action_semesterFragment_to_homeFragment)
-        }
+
     }
 }

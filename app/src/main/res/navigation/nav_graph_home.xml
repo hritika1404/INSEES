@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_semesterFragment_to_homeFragment3"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="selected_semester"
+            app:argType="string" />
     </fragment>
     <dialog
         android:id="@+id/popUpFragment"
@@ -110,5 +113,8 @@
         <action
             android:id="@+id/action_subjectsFragment_to_todoFragment"
             app:destination="@id/todoFragment" />
+        <argument
+            android:name="selected_semester"
+            app:argType="string" />
     </fragment>
 </navigation>
