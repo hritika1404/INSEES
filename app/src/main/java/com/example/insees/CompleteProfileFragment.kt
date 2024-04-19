@@ -79,6 +79,7 @@ class CompleteProfileFragment : Fragment() {
             profilePhoto = ""
             binding.profilePhoto.visibility = View.INVISIBLE
             binding.profileLayout.visibility = View.VISIBLE
+            binding.closeImage.visibility  = View.INVISIBLE
         }
 
         return binding.root
@@ -115,6 +116,8 @@ class CompleteProfileFragment : Fragment() {
                     val selectedImageBitmap =
                         result.data?.extras?.get("data") as Bitmap
 
+                    binding.closeImage.visibility = View.VISIBLE
+
                     binding.profileLayout.visibility = View.INVISIBLE
 
                     // Handle the captured image bitmap
@@ -142,6 +145,7 @@ class CompleteProfileFragment : Fragment() {
                 binding.profilePhoto.apply {
                     visibility= View.VISIBLE
                     setImageURI(uri)
+                    binding.closeImage.visibility = View.VISIBLE
                     profilePhoto = uri.toString()
                 }
             }
