@@ -62,9 +62,9 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             navController.navigate(R.id.action_homeFragment_to_inseesAboutInseesFragment)
         }
 
-//        binding.cardViewMembers.setOnClickListener{
-//            navController.navigate(R.id.)
-//        }
+        binding.cardViewMembers.setOnClickListener{
+            navController.navigate(R.id.action_homeFragment_to_aboutMembersFragment)
+        }
 
         binding.btnViewAll.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_todoFragment)
