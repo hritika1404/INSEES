@@ -11,8 +11,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.insees.Utils.DialogAddBtnClickListener
 import com.example.insees.R
+import com.example.insees.Utils.DialogAddBtnClickListener
+import com.example.insees.Utils.FirebaseManager
 import com.example.insees.Utils.ToDoAdapter
 import com.example.insees.Utils.ToDoData
 import com.example.insees.databinding.FragmentTodoBinding
@@ -20,13 +21,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class TodoFragment : Fragment(), DialogAddBtnClickListener,
     ToDoAdapter.ToDoAdapterClicksInterface {
 
-    private lateinit var binding:FragmentTodoBinding
+    private lateinit var binding: FragmentTodoBinding
     private lateinit var databaseRef: DatabaseReference
     private lateinit var popUpFragment: PopUpFragment
     private lateinit var adapter:ToDoAdapter
@@ -38,8 +38,9 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener,
         savedInstanceState: Bundle?
     ): View {
 
-        binding= FragmentTodoBinding.inflate(inflater,container,false)
+        binding = FragmentTodoBinding.inflate(inflater,container,false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,20 +56,26 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener,
     }
 
     private fun getDataFromFirebase() {
-        databaseRef.addValueEventListener(object :ValueEventListener{
+        val database = databaseRef
+            .child("users")
+            .child(auth.currentUser!!.uid)
+            .child("Tasks")
+
+        database.addValueEventListener(object :ValueEventListener{
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 mList.clear()
                 for (taskSnapshot in snapshot.children){
-                    val taskTitle=taskSnapshot.child("title").getValue(String::class.java) ?:""
-                    val taskDesc=taskSnapshot.child("description").getValue(String::class.java)?:""
-                    val taskTime=taskSnapshot.child("time").getValue(String::class.java)?:""
-                    val taskDate=taskSnapshot.child("date").getValue(String::class.java)?:""
+                    val taskTitle= taskSnapshot.child("title").getValue(String::class.java) ?:""
+                    val taskDesc=  taskSnapshot.child("description").getValue(String::class.java)?:""
+                    val taskTime=  taskSnapshot.child("time").getValue(String::class.java)?:""
+                    val taskDate=  taskSnapshot.child("date").getValue(String::class.java)?:""
 
-                    val todoTask=ToDoData(taskTitle,taskDesc,taskTime,taskDate)
+                    val todoTask = ToDoData(taskTitle,taskDesc,taskTime,taskDate)
                     mList.add(todoTask)
-
                 }
+                mList.sortWith(compareBy({
+                    it.taskDate},{it.taskTime}))
                 adapter.notifyDataSetChanged()
             }
 
@@ -89,17 +96,14 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener,
     }
 
     private fun init() {
-
-        auth= FirebaseAuth.getInstance()
-        databaseRef=FirebaseDatabase.getInstance().getReference("users")
-            .child(auth.currentUser?.uid.toString())
-            .child("Tasks")
+        auth = FirebaseManager.getFirebaseAuth()
+        databaseRef = FirebaseManager.getFirebaseDatabase().reference
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.layoutManager=LinearLayoutManager(context)
-        mList= mutableListOf()
-        adapter= ToDoAdapter(mList)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        mList = mutableListOf()
+        adapter = ToDoAdapter(mList)
         adapter.setListener(this)
-        binding.recyclerView.adapter=adapter
+        binding.recyclerView.adapter = adapter
     }
 
     override fun onSaveTask(
@@ -118,8 +122,12 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener,
             "time" to todoTime,
             "date" to todoDate
         )
+        val database = databaseRef
+            .child("users")
+            .child(auth.currentUser!!.uid)
+            .child("Tasks")
 
-        databaseRef.push().setValue(task).addOnCompleteListener { tasks ->
+        database.push().setValue(task).addOnCompleteListener { tasks ->
             if (tasks.isSuccessful) {
                 Toast.makeText(context, "Todo Saved Successfully", Toast.LENGTH_SHORT).show()
                 todoTitleEt.text = null
@@ -133,8 +141,14 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener,
         }
     }
 
+
     override fun onDeleteTaskBtnClicked(toDoData: ToDoData) {
-        databaseRef
+        val database = databaseRef
+            .child("users")
+            .child(auth.currentUser!!.uid)
+            .child("Tasks")
+
+        database
             .orderByChild("title")
             .equalTo(toDoData.taskTitle)
             .addListenerForSingleValueEvent(object : ValueEventListener{

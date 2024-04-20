@@ -1,6 +1,6 @@
 package com.example.insees.Fragments
 
-import android.net.Uri
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,17 +11,25 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.insees.Utils.DialogAddBtnClickListener
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.insees.R
+import com.example.insees.Utils.DialogAddBtnClickListener
+import com.example.insees.Utils.FirebaseManager
+import com.example.insees.Utils.HomeToDoAdapter
+import com.example.insees.Utils.Swipe
 import com.example.insees.Utils.ToDoData
 import com.example.insees.databinding.FragmentHomeBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), DialogAddBtnClickListener {
 
@@ -29,18 +37,20 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
     private lateinit var navController: NavController
     private lateinit var databaseRef : DatabaseReference
     private lateinit var popUpFragment : PopUpFragment
-    private var tasks : MutableList<ToDoData> = mutableListOf()
+    private lateinit var tasks : MutableList<ToDoData>
     private lateinit var currentUser : FirebaseUser
+    private lateinit var homeAdapter: HomeToDoAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        init()
-        fetchData()
-        setUpViews()
-        registerEvents()
-    }
 
+        setUpViews()
+        fetchDatabase()
+        registerEvents()
+        initSwipe()
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,9 +58,6 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        setUpViews()
-
         binding.cardViewStudyMaterials.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_semesterFragment)
         }
@@ -79,17 +86,19 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
     }
 
     private fun setUpViews() {
-        databaseRef = FirebaseDatabase.getInstance().getReference("users")
-        currentUser = FirebaseAuth.getInstance().currentUser!!
-        databaseRef.child(currentUser.uid).get().addOnSuccessListener {userData->
+        databaseRef = FirebaseManager.getFirebaseDatabase().reference
+
+        currentUser = FirebaseManager.getFirebaseAuth().currentUser!!
+        val database = databaseRef.child("users")
+        database.child(currentUser.uid).get().addOnSuccessListener {userData->
             if(userData.exists())
             {
                 val name = userData.child("name").getValue(String::class.java)
-                val profilePhoto = userData.child("profile_photo").getValue(String::class.java)?.let { Uri.parse(it) }
+//                val profilePhoto = userData.child("profile_photo").getValue(String::class.java)?.let { Uri.parse(it) }
                 var userName = name
                 userName = "Hello $userName"
                 binding.tvHello.text = userName
-                binding.btnProfile.setImageURI(profilePhoto)
+//                binding.btnProfile.setImageURI(profilePhoto)
             }
             else
             {
@@ -98,6 +107,15 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         }.addOnFailureListener{
             Toast.makeText(context, "Failed!", Toast.LENGTH_SHORT).show()
         }
+        tasks = mutableListOf()
+        binding.rvTodo.layoutManager = LinearLayoutManager(context)
+        homeAdapter = HomeToDoAdapter(tasks)
+        binding.rvTodo.adapter = homeAdapter
+
+        if(tasks.isEmpty())
+            binding.rvTodo.visibility = View.GONE
+        else
+            binding.rvTodo.visibility = View.VISIBLE
     }
 
     private fun registerEvents() {
@@ -108,14 +126,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                 "PopUpFragment")
         }
     }
-    private fun init() {
-        currentUser = FirebaseAuth.getInstance().currentUser!!
-        val user = currentUser.uid
-        databaseRef = user.let {
-            FirebaseDatabase.getInstance().reference
-                .child("users").child(it)
-        }
-    }
+    @SuppressLint("NotifyDataSetChanged")
     override fun onSaveTask(
         todoTitle: String,
         todoTitleEt: EditText,
@@ -132,8 +143,12 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             "time" to todoTime,
             "date" to todoDate
         )
+        val database  = databaseRef
+            .child("users")
+            .child(currentUser.uid)
+            .child("Tasks")
 
-        databaseRef.child("Tasks").push().setValue(task).addOnCompleteListener { tasks ->
+        database.push().setValue(task).addOnCompleteListener { tasks ->
             if (tasks.isSuccessful) {
                 Toast.makeText(context, "Todo Saved Successfully", Toast.LENGTH_SHORT).show()
                 todoTitleEt.text = null
@@ -145,11 +160,17 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             }
             popUpFragment.dismiss()
         }
+        if(tasks.isEmpty())
+            binding.rvTodo.visibility = View.GONE
+        else
+            binding.rvTodo.visibility = View.VISIBLE
+        homeAdapter.notifyDataSetChanged()
     }
-    private  fun fetchData() {
-        databaseRef = FirebaseDatabase.getInstance().reference.child("users")
-        val query = databaseRef.child(currentUser.uid)
+    private  fun fetchDatabase() {
+        databaseRef = FirebaseDatabase.getInstance().reference
+        val query = databaseRef.child("users").child(currentUser.uid).child("Tasks")
         query.addValueEventListener(object : ValueEventListener{
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 tasks.clear()
                 for (taskSnapshot in snapshot.children) {
@@ -164,56 +185,11 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                 tasks.sortWith(compareBy({
                     it.taskDate }, {it.taskTime}))
 
-                val size = tasks.size
-                if(size >= 4)
-                {
-                    binding.task1.visibility = View.VISIBLE
-                    binding.task2.visibility = View.VISIBLE
-                    binding.task3.visibility = View.VISIBLE
-                    binding.task4.visibility = View.VISIBLE
-
-                    binding.task1.text = tasks[0].taskTitle
-                    binding.task2.text = tasks[1].taskTitle
-                    binding.task3.text = tasks[2].taskTitle
-                    binding.task4.text = tasks[3].taskTitle
-                }
-                else if (size == 3)
-                {
-                    binding.task1.visibility = View.VISIBLE
-                    binding.task2.visibility = View.VISIBLE
-                    binding.task3.visibility = View.VISIBLE
-                    binding.task4.visibility = View.GONE
-
-                    binding.task1.text = tasks[0].taskTitle
-                    binding.task2.text = tasks[1].taskTitle
-                    binding.task3.text = tasks[2].taskTitle
-                }
-                else if (size == 2)
-                {
-                    binding.task1.visibility = View.VISIBLE
-                    binding.task2.visibility = View.VISIBLE
-                    binding.task3.visibility = View.GONE
-                    binding.task4.visibility = View.GONE
-
-                    binding.task1.text = tasks[0].taskTitle
-                    binding.task2.text = tasks[1].taskTitle
-                }
-                else if (size == 1)
-                {
-                    binding.task1.visibility = View.VISIBLE
-                    binding.task2.visibility = View.GONE
-                    binding.task3.visibility = View.GONE
-                    binding.task4.visibility = View.GONE
-
-                    binding.task1.text = tasks[0].taskTitle
-                }
+                if(tasks.isEmpty())
+                    binding.rvTodo.visibility = View.GONE
                 else
-                {
-                    binding.task1.visibility = View.GONE
-                    binding.task2.visibility = View.GONE
-                    binding.task3.visibility = View.GONE
-                    binding.task4.visibility = View.GONE
-                }
+                    binding.rvTodo.visibility = View.VISIBLE
+                homeAdapter.notifyDataSetChanged()
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(requireContext(), "Error in Fetching data", Toast.LENGTH_SHORT).show()
@@ -221,5 +197,63 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
 
         })
 
+    }
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun initSwipe() {
+        val swipe = object : Swipe() {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val task = homeAdapter.getItem(position)
+                if (direction == ItemTouchHelper.LEFT) {
+                    GlobalScope.launch {
+                        onSwiped(task)
+                    }
+                    Toast.makeText(context, "Task Deleted", Toast.LENGTH_SHORT).show()
+                } else if (direction == ItemTouchHelper.RIGHT) {
+                    GlobalScope.launch {
+                        onSwiped(task)
+                    }
+                    Toast.makeText(context, "Task Finished", Toast.LENGTH_SHORT).show()
+                }
+                homeAdapter.notifyDataSetChanged()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipe)
+        itemTouchHelper.attachToRecyclerView(binding.rvTodo)
+    }
+     private fun onSwiped(toDoData: ToDoData) {
+         val database = databaseRef
+             .child("users")
+             .child(currentUser.uid)
+             .child("Tasks")
+
+        database
+            .orderByChild("title")
+            .equalTo(toDoData.taskTitle)
+            .addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (taskSnapshot in snapshot.children){
+                        //check if the found entry matches the data to be deleted
+                        if (taskSnapshot.child("title").getValue(String::class.java)==toDoData.taskTitle &&
+                            taskSnapshot.child("description").getValue(String::class.java)==toDoData.taskDesc &&
+                            taskSnapshot.child("time").getValue(String::class.java)==toDoData.taskTime &&
+                            taskSnapshot.child("date").getValue(String::class.java)==toDoData.taskDate){
+                            //Delete the entry
+                            taskSnapshot.ref.removeValue()
+                                .addOnCompleteListener {
+                                    if(it.isSuccessful){
+                                        Toast.makeText(context,"Deleted Successfully",Toast.LENGTH_SHORT).show()
+                                    }else{
+                                        Toast.makeText(context,it.exception?.message,Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 }

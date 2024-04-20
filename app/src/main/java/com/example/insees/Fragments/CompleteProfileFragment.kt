@@ -69,7 +69,6 @@ class CompleteProfileFragment : Fragment() {
 
         binding.uploadImage.setOnClickListener {
             galleryLauncher.launch("image/*")
-
         }
 
         binding.btnNextCompleteProfile.setOnClickListener {
@@ -125,7 +124,7 @@ class CompleteProfileFragment : Fragment() {
                     binding.profilePhoto.apply {
                         visibility= View.VISIBLE
 
-                        val result  = WeakReference<Bitmap>(Bitmap.createScaledBitmap(selectedImageBitmap,
+                        val result  = WeakReference(Bitmap.createScaledBitmap(selectedImageBitmap,
                             selectedImageBitmap.height, selectedImageBitmap.width, false).copy(
                                 Bitmap.Config.RGB_565, true
                             )).get()
@@ -201,6 +200,7 @@ class CompleteProfileFragment : Fragment() {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         ) == PackageManager.PERMISSION_GRANTED
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
