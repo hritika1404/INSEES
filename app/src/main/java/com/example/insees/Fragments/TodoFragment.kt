@@ -2,6 +2,7 @@ package com.example.insees.Fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -227,9 +228,9 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener{
                             taskSnapshot.ref.removeValue()
                                 .addOnCompleteListener {
                                     if(it.isSuccessful){
-                                        Toast.makeText(context,"Deleted Successfully",Toast.LENGTH_SHORT).show()
+                                        Log.d("Delete","Deleted")
                                     }else{
-                                        Toast.makeText(context,it.exception?.message,Toast.LENGTH_SHORT).show()
+                                        it.exception?.message?.let { it1 -> Log.d("Failed", it1) }
                                     }
                                 }
                         }
