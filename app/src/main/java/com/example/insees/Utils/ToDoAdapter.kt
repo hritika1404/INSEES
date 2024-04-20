@@ -3,6 +3,7 @@ package com.example.insees.Utils
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.insees.R
 import com.example.insees.databinding.TaskDescriptionBinding
 
 class ToDoAdapter(private val list: MutableList<ToDoData>)
@@ -27,13 +28,17 @@ class ToDoAdapter(private val list: MutableList<ToDoData>)
     }
 
     override fun onBindViewHolder(holder: ToDoViewHolder, position: Int) {
+
         with(holder) {
             with(list[position]) {
+
+                val colors = itemView.resources.getIntArray(R.array.colorResources)
+                val randomColor = colors[position % colors.size]
                 binding.taskTitle.text = this.taskTitle
                 binding.taskDesciption.text = this.taskDesc
                 binding.taskDate.text = this.taskDate
                 binding.taskTime.text = this.taskTime
-
+                binding.linearLayoutTask.setBackgroundColor(randomColor)
 //                binding.btnDeleteTask.setOnClickListener {
 //                    listener?.onDeleteTaskBtnClicked(this) // Pass the entire ToDoData object
 //                }
