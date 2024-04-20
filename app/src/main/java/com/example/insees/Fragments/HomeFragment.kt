@@ -164,6 +164,56 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                 tasks.sortWith(compareBy({
                     it.taskDate }, {it.taskTime}))
 
+                val size = tasks.size
+                if(size >= 4)
+                {
+                    binding.task1.visibility = View.VISIBLE
+                    binding.task2.visibility = View.VISIBLE
+                    binding.task3.visibility = View.VISIBLE
+                    binding.task4.visibility = View.VISIBLE
+
+                    binding.task1.text = tasks[0].taskTitle
+                    binding.task2.text = tasks[1].taskTitle
+                    binding.task3.text = tasks[2].taskTitle
+                    binding.task4.text = tasks[3].taskTitle
+                }
+                else if (size == 3)
+                {
+                    binding.task1.visibility = View.VISIBLE
+                    binding.task2.visibility = View.VISIBLE
+                    binding.task3.visibility = View.VISIBLE
+                    binding.task4.visibility = View.GONE
+
+                    binding.task1.text = tasks[0].taskTitle
+                    binding.task2.text = tasks[1].taskTitle
+                    binding.task3.text = tasks[2].taskTitle
+                }
+                else if (size == 2)
+                {
+                    binding.task1.visibility = View.VISIBLE
+                    binding.task2.visibility = View.VISIBLE
+                    binding.task3.visibility = View.GONE
+                    binding.task4.visibility = View.GONE
+
+                    binding.task1.text = tasks[0].taskTitle
+                    binding.task2.text = tasks[1].taskTitle
+                }
+                else if (size == 1)
+                {
+                    binding.task1.visibility = View.VISIBLE
+                    binding.task2.visibility = View.GONE
+                    binding.task3.visibility = View.GONE
+                    binding.task4.visibility = View.GONE
+
+                    binding.task1.text = tasks[0].taskTitle
+                }
+                else
+                {
+                    binding.task1.visibility = View.GONE
+                    binding.task2.visibility = View.GONE
+                    binding.task3.visibility = View.GONE
+                    binding.task4.visibility = View.GONE
+                }
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(requireContext(), "Error in Fetching data", Toast.LENGTH_SHORT).show()
