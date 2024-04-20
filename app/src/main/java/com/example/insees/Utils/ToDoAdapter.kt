@@ -8,11 +8,11 @@ import com.example.insees.databinding.TaskDescriptionBinding
 class ToDoAdapter(private val list: MutableList<ToDoData>)
     : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
 
-    private var listener: ToDoAdapterClicksInterface? = null
-
-    fun setListener(listener: ToDoAdapterClicksInterface) {
-        this.listener = listener
-    }
+//    private var listener: ToDoAdapterClicksInterface? = null
+//
+//    fun setListener(listener: ToDoAdapterClicksInterface) {
+//        this.listener = listener
+//    }
 
     inner class ToDoViewHolder(val binding: TaskDescriptionBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -34,9 +34,9 @@ class ToDoAdapter(private val list: MutableList<ToDoData>)
                 binding.taskDate.text = this.taskDate
                 binding.taskTime.text = this.taskTime
 
-                binding.btnDeleteTask.setOnClickListener {
-                    listener?.onDeleteTaskBtnClicked(this) // Pass the entire ToDoData object
-                }
+//                binding.btnDeleteTask.setOnClickListener {
+//                    listener?.onDeleteTaskBtnClicked(this) // Pass the entire ToDoData object
+//                }
             }
         }
     }
@@ -45,7 +45,11 @@ class ToDoAdapter(private val list: MutableList<ToDoData>)
         return list.size
     }
 
-    interface ToDoAdapterClicksInterface {
-        fun onDeleteTaskBtnClicked(toDoData: ToDoData)
+    fun getItem(position: Int): ToDoData {
+        return list[position]
     }
+
+//    interface ToDoAdapterClicksInterface {
+//        fun onDeleteTaskBtnClicked(toDoData: ToDoData)
+//    }
 }
