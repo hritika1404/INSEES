@@ -1,4 +1,4 @@
-package com.example.insees
+package com.example.insees.Utils
 
 import android.widget.EditText
 import android.widget.TextView

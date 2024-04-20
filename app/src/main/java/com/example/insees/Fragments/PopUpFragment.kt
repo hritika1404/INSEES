@@ -11,7 +11,7 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.example.insees.DialogAddBtnClickListener
+import com.example.insees.Utils.DialogAddBtnClickListener
 import com.example.insees.databinding.FragmentPopUpBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -23,7 +23,7 @@ class PopUpFragment : DialogFragment(),DatePickerDialog.OnDateSetListener,TimePi
     private lateinit var databaseRef:DatabaseReference
     private lateinit var listener: DialogAddBtnClickListener
 
-    fun setListener(listener:DialogAddBtnClickListener){
+    fun setListener(listener: DialogAddBtnClickListener){
         this.listener = listener
     }
 

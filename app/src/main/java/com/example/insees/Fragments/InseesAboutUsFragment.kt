@@ -1,4 +1,4 @@
-package com.example.insees
+package com.example.insees.Fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.insees.R
 import com.example.insees.databinding.FragmentInseesAboutUsBinding
 
 

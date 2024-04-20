@@ -1,4 +1,4 @@
-package com.example.insees
+package com.example.insees.Fragments
 
 import android.os.Bundle
 import android.util.Patterns
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.insees.R
 import com.example.insees.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {

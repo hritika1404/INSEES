@@ -1,12 +1,8 @@
-package com.example.insees
+package com.example.insees.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.insees.R
 
 class MainActivity : AppCompatActivity() {
 
