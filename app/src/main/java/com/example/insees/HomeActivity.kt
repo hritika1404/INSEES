@@ -25,7 +25,7 @@ class HomeActivity : AppCompatActivity() {
             bottomNavigationView, navController
         )
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {item ->
+        bottomNavigationView.setOnItemSelectedListener{item ->
             when(item.itemId) {
                 R.id.homeFragment -> {
 

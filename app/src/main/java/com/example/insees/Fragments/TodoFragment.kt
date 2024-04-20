@@ -157,7 +157,6 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener,
                         }
                     }
                 }
-
                 override fun onCancelled(error: DatabaseError) {
                     Toast.makeText(context,error.message,Toast.LENGTH_SHORT).show()
                 }
