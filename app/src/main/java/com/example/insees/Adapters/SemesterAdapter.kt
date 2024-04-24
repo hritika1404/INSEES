@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.insees.R
-import com.google.android.material.card.MaterialCardView
 
 class SemesterAdapter(context: Context, private val semesters: Array<String>) :
     ArrayAdapter<String>(context, R.layout.semester_item_layout, semesters) {
