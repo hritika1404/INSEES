@@ -143,14 +143,14 @@
                     android:id="@+id/btnAddTask"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4sp"
                     android:backgroundTint="#353535"
                     android:textColor="@color/white"
                     android:drawableLeft="@drawable/baseline_add_box_24"
                     android:drawableTint="@color/white"
-                    android:padding="8dp"
-                    android:paddingStart="120dp"
-                    android:paddingEnd="120dp"
+                    android:padding="8sp"
+                    android:paddingStart="130sp"
+                    android:paddingEnd="130sp"
                     android:text="@string/add_task"
                     tools:ignore="RtlHardcoded" />
 
@@ -304,17 +304,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:progress="@integer/material_motion_duration_medium_1"
-        android:indeterminate="true"
-        style="?android:attr/progressBarStyle"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
