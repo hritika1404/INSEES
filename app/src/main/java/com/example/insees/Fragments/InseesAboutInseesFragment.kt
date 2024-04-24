@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.GridView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.insees.Dataclasses.GridViewModal
+import com.example.insees.Dataclasses.GridModel
 import com.example.insees.Utils.GridRVAdapter
 import com.example.insees.R
 import com.example.insees.databinding.FragmentInseesAboutInseesBinding
@@ -16,7 +16,7 @@ import com.example.insees.databinding.FragmentInseesAboutInseesBinding
 
 class InseesAboutInseesFragment : Fragment() {
     lateinit var MemberGRV: GridView
-    lateinit var MemberList: List<GridViewModal>
+    lateinit var MemberList: List<GridModel>
     lateinit var binding: FragmentInseesAboutInseesBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -29,22 +29,22 @@ class InseesAboutInseesFragment : Fragment() {
             findNavController().navigate(R.id.action_inseesAboutInseesFragment_to_homeFragment)
         }
         MemberGRV = view.findViewById(R.id.idgv)
-        MemberList = ArrayList<GridViewModal>()
+        MemberList = ArrayList<GridModel>()
 
         // Adding data to our course list with image and course name.
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
+        MemberList = MemberList + GridModel("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
             R.drawable.sample_img
         )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
+        MemberList = MemberList + GridModel("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
             R.drawable.sample_img
         )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
+        MemberList = MemberList + GridModel("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
             R.drawable.sample_img
         )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
+        MemberList = MemberList + GridModel("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
             R.drawable.sample_img
         )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
+        MemberList = MemberList + GridModel("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
             R.drawable.sample_img
         )
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.insees.Dataclasses.GridViewModal
+import com.example.insees.Dataclasses.GridModel
 import com.example.insees.R
 
 // on below line we are creating an
@@ -15,7 +15,7 @@ import com.example.insees.R
 internal class GridRVAdapter(
     // on below line we are creating two
     // variables for course list and context
-    private val MemberList: List<GridViewModal>,
+    private val MemberList: List<GridModel>,
     private val context: Context
 ) :
     BaseAdapter() {

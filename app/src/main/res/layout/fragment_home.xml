@@ -141,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:backgroundTint="#353535"
+                    android:backgroundTint="@color/theme"
                     android:textColor="@color/white"
                     android:drawableLeft="@drawable/baseline_add_box_24"
                     android:drawableTint="@color/white"
@@ -175,7 +175,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@color/purpleblue"
+                        android:background="@color/bottomNav"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:paddingBottom="24dp">
