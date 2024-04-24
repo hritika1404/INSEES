@@ -49,7 +49,8 @@
     <color name="silver">#C0C0C0</color>
     <color name="lighttyellow">#E4AD1C</color>
     <color name="purpleblue">#6F4BD7</color>
-    
+    <color name="darkGrey2">#353535</color>
+
     <array name="colorResources">
         <item name="lighttyellow">#E4AD1C</item>
         <item name="purpleblue">#6F4BD7</item>

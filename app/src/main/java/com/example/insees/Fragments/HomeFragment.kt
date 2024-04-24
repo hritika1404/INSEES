@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.insees.R
 import com.example.insees.Utils.DialogAddBtnClickListener
 import com.example.insees.Utils.FirebaseManager
-import com.example.insees.Utils.HomeToDoAdapter
+import com.example.insees.Adapters.HomeToDoAdapter
 import com.example.insees.Utils.Swipe
-import com.example.insees.Utils.ToDoData
+import com.example.insees.Dataclasses.ToDoData
 import com.example.insees.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -45,11 +45,9 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
-        setUpViews()
-        fetchDatabase()
+
         registerEvents()
         initSwipe()
-
     }
 
     override fun onCreateView(
@@ -81,7 +79,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         binding.btnAddTask.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_popUpFragment)
         }
-
+        setUpViews()
         return binding.root
     }
 
@@ -179,7 +177,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                     val taskTime=taskSnapshot.child("time").getValue(String::class.java)?:""
                     val taskDate=taskSnapshot.child("date").getValue(String::class.java)?:""
 
-                    val todoTask=ToDoData(taskTitle,taskDesc,taskTime,taskDate)
+                    val todoTask= ToDoData(taskTitle,taskDesc,taskTime,taskDate)
                     tasks.add(todoTask)
                 }
                 tasks.sortWith(compareBy({
@@ -190,6 +188,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                 else
                     binding.rvTodo.visibility = View.VISIBLE
                 homeAdapter.notifyDataSetChanged()
+
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(requireContext(), "Error in Fetching data", Toast.LENGTH_SHORT).show()

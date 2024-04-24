@@ -1,8 +1,9 @@
-package com.example.insees.Utils
+package com.example.insees.Adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.insees.Dataclasses.ToDoData
 import com.example.insees.R
 import com.example.insees.databinding.TaskDescriptionBinding
 
