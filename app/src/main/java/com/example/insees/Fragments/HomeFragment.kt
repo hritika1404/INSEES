@@ -80,6 +80,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             navController.navigate(R.id.action_homeFragment_to_popUpFragment)
         }
         setUpViews()
+        fetchDatabase()
         return binding.root
     }
 
