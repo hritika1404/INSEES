@@ -97,7 +97,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                 var userName = name
                 userName = "Hello $userName"
                 binding.tvHello.text = userName
-//                binding.btnProfile.setImageURI(profilePhoto)
+//              binding.btnProfile.setImageURI(profilePhoto)
             }
             else
             {

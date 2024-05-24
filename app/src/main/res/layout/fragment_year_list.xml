@@ -43,16 +43,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Subject"
+                android:text="Select Year"
+                android:fontFamily="@font/coco"
                 android:textColor="@color/white"
-                android:textSize="23sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="CONTENT TO BE WRITTEN!!"
-                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>
