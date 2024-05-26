@@ -15,8 +15,6 @@ import com.example.insees.databinding.FragmentInseesAboutInseesBinding
 
 
 class InseesAboutInseesFragment : Fragment() {
-    lateinit var MemberGRV: GridView
-    lateinit var MemberList: List<GridViewModal>
     lateinit var binding: FragmentInseesAboutInseesBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -24,35 +22,6 @@ class InseesAboutInseesFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentInseesAboutInseesBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        binding.btnBackHomeFromInsees.setOnClickListener {
-            findNavController().navigate(R.id.action_inseesAboutInseesFragment_to_homeFragment)
-        }
-        MemberGRV = view.findViewById(R.id.idgv)
-        MemberList = ArrayList<GridViewModal>()
-
-        // Adding data to our course list with image and course name.
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
-            R.drawable.sample_img
-        )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
-            R.drawable.sample_img
-        )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
-            R.drawable.sample_img
-        )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
-            R.drawable.sample_img
-        )
-        MemberList = MemberList + GridViewModal("Name","loprem ipsum Description qwertyuiopasdfghjklzxcvbnm" ,
-            R.drawable.sample_img
-        )
-
-        // Initializing our course adapter and passing course list and context.
-        val courseAdapter = GridRVAdapter(memberList = MemberList, requireContext())
-
-        // Setting adapter to our grid view.
-        MemberGRV.adapter = courseAdapter
 
         return view
 
