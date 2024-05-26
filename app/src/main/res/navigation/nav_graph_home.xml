@@ -34,6 +34,9 @@
         <argument
             android:name="selected_semester"
             app:argType="string" />
+        <action
+            android:id="@+id/action_semesterFragment_to_pdfViewerFragment"
+            app:destination="@id/pdfViewerFragment" />
     </fragment>
     <dialog
         android:id="@+id/popUpFragment"
@@ -101,7 +104,7 @@
         tools:layout="@layout/fragment_about_members" />
     <fragment
         android:id="@+id/subjectsFragment"
-        android:name="com.example.insees.Fragments.SubjectsFragment"
+        android:name="com.example.insees.Fragments.YearFragment"
         android:label="fragment_subject_list"
         tools:layout="@layout/fragment_subject_list" >
         <action
@@ -116,5 +119,19 @@
         <argument
             android:name="selected_semester"
             app:argType="string" />
+        <action
+            android:id="@+id/action_subjectsFragment_to_pdfViewerFragment"
+            app:destination="@id/pdfViewerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/pdfViewerFragment"
+        android:name="com.example.insees.Fragments.PdfViewerFragment"
+        android:label="fragment_pdf_viewer"
+        tools:layout="@layout/fragment_pdf_viewer" />
+    <argument
+        android:name="file_name"
+        app:argType="string" />
+    <argument
+        android:name="download_url"
+        app:argType="string" />
 </navigation>

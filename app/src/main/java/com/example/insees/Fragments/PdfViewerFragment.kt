@@ -2,6 +2,7 @@ package com.example.insees.Fragments
 
 import android.app.DownloadManager
 import android.content.Context.DOWNLOAD_SERVICE
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.insees.Utils.DOWNLOAD_FAILED
@@ -52,10 +54,14 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
         snackbar = Snackbar.make(binding.PdfViewerLayout, "", Snackbar.LENGTH_INDEFINITE).setTextColor(
             Color.WHITE).setActionTextColor(Color.DKGRAY)
 
+        val downloadDir = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"Insees")
+
+        val file = File(downloadDir,fileName)
+
         loadPdf()
 
         binding.floatingActionButton.setOnClickListener {
-            downloadPdf(downloadUrl, fileName)
+            downloadPdf(downloadUrl, file)
         }
 
         return binding.root
@@ -64,7 +70,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
     private fun loadPdf(){
 
         lifecycleScope.launch(Dispatchers.IO) {
-            Log.d("abcd", downloadUrl)
+
             val inputStream = URL(downloadUrl).openStream()
             withContext(Dispatchers.Main) {
                 binding.pdfView.fromStream(inputStream).onRender { pages, pageWidth, pageHeight ->
@@ -76,19 +82,19 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
         }
     }
 
-    private fun downloadPdf(downloadUrl: String?, fileName: String?) {
+    private fun downloadPdf(downloadUrl: String?, file:File) {
         try {
             val downloadUri = Uri.parse(downloadUrl)
+
             val request = DownloadManager.Request(downloadUri)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
                 .setAllowedOverRoaming(false)
-                .setTitle(fileName)
+                .setTitle(file.name)
                 .setMimeType("application/pdf")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationInExternalPublicDir(
-                    Environment.DIRECTORY_DOWNLOADS,
-                    File.separator + fileName
-                )
+                .setDestinationUri(Uri.fromFile(file))
+
+
             val downloadId = downloadManager.enqueue(request)
             binding.progressBar.visibility = View.VISIBLE
             val downloadProgressHelper = DownloadProgressUpdater(downloadManager, downloadId, this)
