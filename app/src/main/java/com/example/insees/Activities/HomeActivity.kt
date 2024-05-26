@@ -2,6 +2,9 @@ package com.example.insees.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -13,7 +16,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -29,7 +31,6 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigationView.setOnItemSelectedListener{item ->
             when(item.itemId) {
                 R.id.homeFragment -> {
-
                     navController.navigate(R.id.homeFragment)
                     true
                 }

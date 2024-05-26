@@ -49,7 +49,7 @@ class InseesAboutInseesFragment : Fragment() {
         )
 
         // Initializing our course adapter and passing course list and context.
-        val courseAdapter = GridRVAdapter(MemberList = MemberList, requireContext())
+        val courseAdapter = GridRVAdapter(memberList = MemberList, requireContext())
 
         // Setting adapter to our grid view.
         MemberGRV.adapter = courseAdapter
