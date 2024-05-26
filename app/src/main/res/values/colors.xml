@@ -5,7 +5,7 @@
     <color name="primaryText">#F6F6F6</color>
     <color name="background">#0D0D0D</color>
     <color name="theme">#353535</color>
-
+    <color name="bottomNav">#704CD9</color>
     <!-- Red Shades -->
     <color name="darkRed">#DF392E</color>
     <color name="mediumRed">#F44336</color>

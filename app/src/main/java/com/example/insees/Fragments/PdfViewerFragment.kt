@@ -55,8 +55,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
         loadPdf()
 
         binding.floatingActionButton.setOnClickListener {
-            downloadPdf(downloadUrl, fileName
-            )
+            downloadPdf(downloadUrl, fileName)
         }
 
         return binding.root
