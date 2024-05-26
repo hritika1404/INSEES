@@ -30,14 +30,16 @@
             android:id="@+id/btnSubjectBack"
             android:layout_width="39dp"
             android:layout_height="39dp"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:background="#D5353535"
-            android:src="@drawable/white" />
+            android:src="@drawable/backbtn" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <TextView
@@ -45,16 +47,17 @@
                 android:layout_height="wrap_content"
                 android:text="Select Year"
                 android:textColor="@color/white"
-                android:textSize="23sp"
+                android:textSize="30sp"
+                android:fontFamily="@font/bentham"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/subjectsList"
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

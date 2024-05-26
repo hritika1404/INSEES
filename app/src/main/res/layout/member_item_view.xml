@@ -15,9 +15,10 @@
         android:backgroundTint="#1E1F22"
         app:cardCornerRadius="24dp">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/idIVImage"
@@ -34,7 +35,8 @@
                 android:layout_below="@id/idIVImage"
                 android:padding="16dp"
                 android:backgroundTint="#1E1F22"
-                android:text="News Headline"
+                android:text="Name"
+                android:fontFamily="@font/coco"
                 android:textSize="14dp"
                 android:textStyle="bold"
                 android:textColor="@color/white" />
@@ -45,11 +47,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/idTVName"
+                android:fontFamily="@font/muskmedium"
                 android:textColor="@color/white"
                 android:text="Lorem Ipsum qwertyuiopasdfghjklzxcvbnm"
                 />
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 

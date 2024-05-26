@@ -28,17 +28,38 @@ class InseesAboutUsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentInseesAboutUsBinding.inflate(inflater,container,false)
 
-        binding.inseesLayout.setOnClickListener{
-            navController.navigate(R.id.action_inseesAboutUsFragment_to_inseesAboutInseesFragment)
+        val membersFragment = InseesAboutInseesFragment()
+        val aboutinseesFragment = AboutMembersFragment()
+        childFragmentManager.beginTransaction().apply {
+            replace(R.id.flfragmentaboutus,membersFragment)
+            commit()
+        }
+        binding.membersbtn.setOnClickListener {
+            childFragmentManager.beginTransaction().apply {
+                replace(R.id.flfragmentaboutus,membersFragment)
+                commit()
+            }
         }
 
-        binding.aboutMembers.setOnClickListener {
-            navController.navigate(R.id.action_inseesAboutUsFragment_to_aboutMembersFragment)
+        binding.developersbtn.setOnClickListener {
+            childFragmentManager.beginTransaction().apply {
+                replace(R.id.flfragmentaboutus, aboutinseesFragment)
+                commit()
+            }
         }
 
-        binding.imageButton3.setOnClickListener {
-            navController.navigate(R.id.action_inseesAboutUsFragment_to_aboutMembersFragment)
-        }
+
+//        binding.inseesLayout.setOnClickListener{
+//            navController.navigate(R.id.action_inseesAboutUsFragment_to_inseesAboutInseesFragment)
+//        }
+//
+//        binding.aboutMembers.setOnClickListener {
+//            navController.navigate(R.id.action_inseesAboutUsFragment_to_aboutMembersFragment)
+//        }
+//
+//        binding.imageButton3.setOnClickListener {
+//            navController.navigate(R.id.action_inseesAboutUsFragment_to_aboutMembersFragment)
+//        }
 
         return binding.root
     }

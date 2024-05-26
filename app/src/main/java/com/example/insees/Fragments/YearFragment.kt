@@ -16,14 +16,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.insees.Adapters.YearAdapter
 import com.example.insees.R
 import com.example.insees.Utils.FirebaseManager
-import com.example.insees.databinding.FragmentSubjectListBinding
+import com.example.insees.databinding.FragmentYearListBinding
 import com.google.firebase.storage.StorageReference
 import kotlinx.coroutines.flow.callbackFlow
 import java.io.File
 
 class YearFragment : Fragment(){
 
-    private lateinit var binding:FragmentSubjectListBinding
+    private lateinit var binding:FragmentYearListBinding
     private lateinit var subjectListView: ListView
     private lateinit var selectedSemester: String
     private lateinit var storageRef: StorageReference
@@ -43,7 +43,7 @@ class YearFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSubjectListBinding.inflate(inflater,container,false)
+        binding = FragmentYearListBinding.inflate(inflater,container,false)
         subjectListView = binding.subjectsList
 
         // Here you can populate the subjects based on the selected semester
@@ -62,7 +62,7 @@ class YearFragment : Fragment(){
 
         val backbtn = binding.btnSubjectBack
         backbtn.setOnClickListener {
-            findNavController().navigate(R.id.action_subjectsFragment_to_semesterFragment)
+            findNavController().navigate(R.id.action_yearFragment_to_semesterFragment)
 
         }
         return binding.root
@@ -108,11 +108,11 @@ class YearFragment : Fragment(){
                     }
                     else{
                         binding.progressBar.visibility = View.VISIBLE
-                    fileRef.downloadUrl.addOnCompleteListener{
-                        if(it.isSuccessful) {
-                            downloadUrl = it.result.toString()
+                        fileRef.downloadUrl.addOnCompleteListener{
+                            if(it.isSuccessful) {
+                                downloadUrl = it.result.toString()
                                 findNavController().navigate(
-                                    R.id.action_subjectsFragment_to_pdfViewerFragment,
+                                    R.id.action_yearFragment_to_pdfViewerFragment,
                                     Bundle().apply {
                                         putString("file_name", fileName)
                                         putString("download_url", downloadUrl)
@@ -128,11 +128,11 @@ class YearFragment : Fragment(){
     }
 
     private fun openPdf(file:File){
-            val path = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.setDataAndType(path,"application/pdf")
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION
-            startActivity(intent)
+        val path = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(path,"application/pdf")
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_GRANT_READ_URI_PERMISSION
+        startActivity(intent)
     }
 
 
