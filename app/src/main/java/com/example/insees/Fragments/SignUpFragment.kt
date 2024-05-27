@@ -40,6 +40,7 @@ class SignUpFragment : Fragment() {
 
         binding.tvLogin.setOnClickListener{
             navController.navigate(R.id.action_signUpFragment_to_loginFragment)
+
         }
 
         return binding.root

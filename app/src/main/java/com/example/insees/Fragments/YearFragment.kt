@@ -3,7 +3,6 @@ package com.example.insees.Fragments
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,6 @@ import com.example.insees.R
 import com.example.insees.Utils.FirebaseManager
 import com.example.insees.databinding.FragmentYearListBinding
 import com.google.firebase.storage.StorageReference
-import kotlinx.coroutines.flow.callbackFlow
 import java.io.File
 
 class YearFragment : Fragment(){
@@ -42,7 +40,7 @@ class YearFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentYearListBinding.inflate(inflater,container,false)
         subjectListView = binding.subjectsList
 

@@ -43,7 +43,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentPdfViewerBinding.inflate(inflater,container,false)
 

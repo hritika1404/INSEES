@@ -26,6 +26,7 @@ class IntroFragment : Fragment() {
             {
                 Toast.makeText(requireContext(), "User is already logged in", Toast.LENGTH_SHORT).show()
                 redirect("MAIN")
+                requireActivity().finish()
             }
             else
                 redirect("LOGIN")
