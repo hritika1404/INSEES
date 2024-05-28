@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -19,6 +20,7 @@ import com.example.insees.Dataclasses.ToDoData
 import com.example.insees.R
 import com.example.insees.Utils.DialogAddBtnClickListener
 import com.example.insees.Utils.FirebaseManager
+import com.example.insees.Utils.HomeViewModel
 import com.example.insees.Utils.Swipe
 import com.example.insees.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseUser
@@ -29,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment(), DialogAddBtnClickListener {
@@ -41,16 +42,18 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
     private lateinit var popUpFragment : PopUpFragment
     private lateinit var homeAdapter: HomeToDoAdapter
     private var tasks : MutableList<ToDoData> = mutableListOf()
-    private lateinit var name : String
-
-
-    @OptIn(DelicateCoroutinesApi::class)
+    private lateinit var viewModel: HomeViewModel
+    private var isDataLoaded = false
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
+        setUpViews(viewModel.userData.toString())
 
-        fetchDatabase()
+        viewModel.userData.observe(viewLifecycleOwner){
+            binding.tvHello.text = it
+        }
+
         registerEvents()
         initSwipe()
     }
@@ -61,13 +64,21 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-        binding.progressBar.visibility = View.VISIBLE
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
+        fetchDatabase()
+        viewModel.fetchUserData()
+            viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
+                if (isLoading) {
+                    binding.progressBar.visibility = View.VISIBLE
+                    binding.appBar.visibility = View.GONE
+                    binding.scrollViewHome.visibility = View.GONE
+                } else {
+                    binding.progressBar.visibility = View.GONE
+                    binding.appBar.visibility = View.VISIBLE
+                    binding.scrollViewHome.visibility = View.VISIBLE
+                }
+            }
 
-        // Hide other views until data is fetched
-        binding.appBar.visibility = View.GONE
-        binding.scrollViewHome.visibility = View.GONE
-        
-        setUpViews()
             binding.cardViewStudyMaterials.setOnClickListener{
             navController.navigate(R.id.action_homeFragment_to_semesterFragment)
         }
@@ -94,27 +105,26 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         return binding.root
     }
 
-    private fun setUpViews() {
-        databaseRef = FirebaseManager.getFirebaseDatabase().reference
-
-
-        currentUser = FirebaseManager.getFirebaseAuth().currentUser!!
-        val database = databaseRef.child("users")
-        database.child(currentUser.uid).get().addOnSuccessListener {userData->
-            if(userData.exists())
-            {
-                  name = "Hello " + userData.child("name").getValue(String::class.java).toString()
-//                val profilePhoto = userData.child("profile_photo").getValue(String::class.java)?.let { Uri.parse(it) }
-//                binding.btnProfile.setImageURI(profilePhoto)
-                  binding.tvHello.text = name
-            }
-            else
-            {
-                Toast.makeText(context, "User Doesn't Exist!", Toast.LENGTH_SHORT).show()
-            }
-        }.addOnFailureListener{
-            Toast.makeText(context, "Failed!", Toast.LENGTH_SHORT).show()
-        }
+    private fun setUpViews(userData : String) {
+//        databaseRef = FirebaseManager.getFirebaseDatabase().reference
+//        currentUser = FirebaseManager.getFirebaseAuth().currentUser!!
+//        val database = databaseRef.child("users")
+//        database.child(currentUser.uid).get().addOnSuccessListener {userData->
+//            if(userData.exists())
+//            {
+//                  name = "Hello " + userData.child("name").getValue(String::class.java).toString()
+////                val profilePhoto = userData.child("profile_photo").getValue(String::class.java)?.let { Uri.parse(it) }
+////                binding.btnProfile.setImageURI(profilePhoto)
+//                  binding.tvHello.text = name
+//            }
+//            else
+//            {
+//                Toast.makeText(context, "User Doesn't Exist!", Toast.LENGTH_SHORT).show()
+//            }
+//        }.addOnFailureListener{
+//            Toast.makeText(context, "Failed!", Toast.LENGTH_SHORT).show()
+//        }
+        binding.tvHello.text = userData
         binding.rvTodo.layoutManager = LinearLayoutManager(context)
         homeAdapter = HomeToDoAdapter(tasks)
         binding.rvTodo.adapter = homeAdapter
@@ -133,7 +143,11 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         }
     }
     private fun fetchDatabase() {
+
+        isDataLoaded = true
+
         databaseRef = FirebaseDatabase.getInstance().reference
+        currentUser = FirebaseManager.getFirebaseAuth().currentUser!!
         val query = databaseRef.child("users").child(currentUser.uid).child("Tasks")
         query.addValueEventListener(object : ValueEventListener {
             @SuppressLint("NotifyDataSetChanged")
@@ -156,15 +170,10 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                 else
                     binding.rvTodo.visibility = View.VISIBLE
                 homeAdapter.notifyDataSetChanged()
-
-                binding.progressBar.visibility = View.GONE
-                binding.appBar.visibility = View.VISIBLE
-                binding.scrollViewHome.visibility = View.VISIBLE
             }
             override fun onCancelled(error: DatabaseError) {
                 Toast.makeText(requireContext(), "Error in Fetching data", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
     @SuppressLint("NotifyDataSetChanged")

@@ -13,7 +13,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -23,9 +22,6 @@ class HomeActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
-
-        // Remove the default item selected listener
-        bottomNavigationView.setOnItemSelectedListener(null)
 
         // Custom navigation handling
         bottomNavigationView.setOnItemSelectedListener { item ->
