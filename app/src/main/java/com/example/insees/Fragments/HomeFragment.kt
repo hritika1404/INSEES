@@ -65,8 +65,9 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
-        fetchDatabase()
+
         viewModel.fetchUserData()
+        fetchDatabase()
             viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
                 if (isLoading) {
                     binding.progressBar.visibility = View.VISIBLE
