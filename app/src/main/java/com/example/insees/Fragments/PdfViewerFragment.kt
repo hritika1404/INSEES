@@ -1,6 +1,7 @@
 package com.example.insees.Fragments
 
 import android.app.DownloadManager
+import android.content.Context
 import android.content.Context.DOWNLOAD_SERVICE
 import android.graphics.Color
 import android.net.Uri
@@ -31,12 +32,16 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
     private lateinit var downloadManager: DownloadManager
     private lateinit var downloadUrl: String
     private lateinit var fileName: String
+    private lateinit var selectedYear: String
+    private lateinit var selectedSemester: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             fileName = it.getString("file_name", "")
             downloadUrl = it.getString("download_url", "")
+            selectedYear = it.getString("selected_year", "")
+            selectedSemester = it.getString("selected_semester", "")
         }
     }
 
@@ -52,10 +57,14 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
         snackbar = Snackbar.make(binding.PdfViewerLayout, "", Snackbar.LENGTH_INDEFINITE).setTextColor(
             Color.WHITE).setActionTextColor(Color.DKGRAY)
 
+        val downloadDir = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"Insees")
+
+        val file = File(downloadDir,fileName)
+
         loadPdf()
 
         binding.floatingActionButton.setOnClickListener {
-            downloadPdf(downloadUrl, fileName)
+            downloadPdf(downloadUrl, file)
         }
 
         return binding.root
@@ -76,19 +85,16 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
         }
     }
 
-    private fun downloadPdf(downloadUrl: String?, fileName: String?) {
+    private fun downloadPdf(downloadUrl: String?, file: File) {
         try {
             val downloadUri = Uri.parse(downloadUrl)
             val request = DownloadManager.Request(downloadUri)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
                 .setAllowedOverRoaming(false)
-                .setTitle(fileName)
+                .setTitle(file.name)
                 .setMimeType("application/pdf")
                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
-                .setDestinationInExternalPublicDir(
-                    Environment.DIRECTORY_DOWNLOADS,
-                    File.separator + fileName
-                )
+                .setDestinationUri(Uri.fromFile(file))
             val downloadId = downloadManager.enqueue(request)
             binding.progressBar.visibility = View.VISIBLE
             val downloadProgressHelper = DownloadProgressUpdater(downloadManager, downloadId, this)
@@ -113,6 +119,9 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
                         " Downloaded Successfully !!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    val sharedPref = requireContext().getSharedPreferences("file_name", Context.MODE_PRIVATE)
+                    sharedPref.edit().putString("$selectedSemester $selectedYear",fileName).apply()
+
                     snackbar.dismiss()
                 }
 
