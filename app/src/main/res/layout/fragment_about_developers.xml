@@ -65,7 +65,7 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/btn_Parthiv"
+                    android:id="@+id/btn_Sudip"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:layout_row="0"
@@ -96,29 +96,21 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Parthiv Kumar Das"
+                            android:text="Sudip Das"
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold">
 
                         </TextView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="POR"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold">
 
-                        </TextView>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/btn_Bishal"
+                    android:id="@+id/btn_Ankit"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:layout_row="0"
@@ -149,17 +141,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Parthiv Kumar Das"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold">
-
-                        </TextView>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="POR"
+                            android:text="Ankit Kumar\n Barnwal"
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold">
@@ -171,6 +153,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Rishi"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:layout_row="1"
@@ -200,28 +183,20 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Parthiv Kumar Das"
+                            android:text="Rishi Gorai"
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold">
 
                         </TextView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="POR"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold">
-
-                        </TextView>
 
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btn_Bishal"
                     android:layout_width="wrap_content"
                     android:layout_height="200dp"
                     android:layout_row="1"
@@ -252,22 +227,13 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Parthiv Kumar Das"
+                            android:text="Bishal Paul\n Biswas"
                             android:textAlignment="center"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold">
 
                         </TextView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="POR"
-                            android:textAlignment="center"
-                            android:textColor="#FFFFFF"
-                            android:textStyle="bold">
-
-                        </TextView>
 
                     </LinearLayout>
 
