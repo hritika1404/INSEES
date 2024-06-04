@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.insees.Activities.MainActivity
-import com.example.insees.R
 import com.example.insees.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -19,10 +18,6 @@ class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var navController : NavController
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,7 +32,7 @@ class ProfileFragment : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view = binding.root
         binding.btnBackToHome.setOnClickListener {
-            navController.navigate(R.id.action_profileFragment_to_homeFragment)
+            navController.popBackStack()
         }
         binding.btnLogOut.setOnClickListener {
             logout()
