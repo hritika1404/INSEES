@@ -23,6 +23,7 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
 
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
