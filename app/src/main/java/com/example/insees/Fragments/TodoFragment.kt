@@ -156,12 +156,9 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener {
 
     private fun isDateValid(todoDate: String): Boolean {
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val currentDate = Calendar.getInstance().time
-        val selectedDate = sdf.parse(todoDate)
-        if (selectedDate != null) {
-            return !selectedDate.before(currentDate)
-        }
-        return false
+        val currentDate = sdf.format(Calendar.getInstance().time)
+        val selectedDate = sdf.format(sdf.parse(todoDate) ?: return false)
+        return selectedDate >= currentDate
     }
 
     @OptIn(DelicateCoroutinesApi::class)
