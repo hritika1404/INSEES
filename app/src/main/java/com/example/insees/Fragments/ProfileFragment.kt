@@ -13,7 +13,6 @@ import com.example.insees.Activities.MainActivity
 import com.example.insees.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 
-
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
