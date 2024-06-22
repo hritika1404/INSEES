@@ -21,7 +21,6 @@ import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.insees.Activities.HomeActivity
 import com.example.insees.databinding.FragmentCompleteProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -90,22 +89,36 @@ class CompleteProfileFragment : Fragment() {
             if(task.isSuccessful){
                 if (validateField()) {
                     val name = binding.etNameCompleteProfile.text.toString()
+
                     val uid = auth.currentUser?.uid.toString()
+
                     val user = hashMapOf(
                         "name" to name,
                         "profile_photo" to profilePhoto
                     )
 
-                    val databaseRef = database.getReference("users")
+                        val databaseRef = database.getReference("users")
+                        databaseRef.child(uid).setValue(user)
 
-                    databaseRef.child(uid).setValue(user)
+                    auth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                        Toast.makeText(requireContext(), "Please Verify Your Email", Toast.LENGTH_SHORT).show()
+                        navController.popBackStack()
+                    }
+                        ?.addOnFailureListener {
+                            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                        }
 
-                    val intent = Intent(context, HomeActivity::class.java)
-                    startActivity(intent)
+//                    val intent = Intent(context, HomeActivity::class.java)
+//                    startActivity(intent)
+//                    navController.navigate(R.id.action_completeProfileFragment_to_loginFragment)
                 }
             }
         }.addOnFailureListener { exception->
-            Toast.makeText(context, exception.localizedMessage, Toast.LENGTH_LONG).show()
+            Toast.makeText(requireContext(), exception.localizedMessage, Toast.LENGTH_LONG).show()
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.nav_host_fragment, LoginFragment())
+//                .commit()
+            navController.popBackStack()
         }
     }
 

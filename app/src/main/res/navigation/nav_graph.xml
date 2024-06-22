@@ -27,7 +27,8 @@
         tools:layout="@layout/fragment_sign_up" >
         <action
             android:id="@+id/action_signUpFragment_to_completeProfileFragment"
-            app:destination="@id/completeProfileFragment" />
+            app:destination="@id/completeProfileFragment"
+            app:popUpTo="@id/loginFragment" />
         <action
             android:id="@+id/action_signUpFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -55,6 +56,9 @@
         android:name="com.example.insees.Fragments.CompleteProfileFragment"
         android:label="fragment_complete_profile"
         tools:layout="@layout/fragment_complete_profile" >
+        <action
+            android:id="@+id/action_completeProfileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <activity
         android:id="@+id/homeActivity"
