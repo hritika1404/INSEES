@@ -60,15 +60,13 @@
             android:text="Members"
             android:layout_weight="1"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:checkedIconTint="@color/white"
             app:icon="@drawable/insees_logo"
             app:iconTint="@color/white"
             app:iconSize="30dp"
-            app:shapeAppearanceOverlay="@style/roundedButtonShape"
-            tools:layout_editor_absoluteX="160dp"
-            tools:layout_editor_absoluteY="113dp" />
+            app:shapeAppearanceOverlay="@style/roundedButtonShape"/>
 
         <Button
             android:id="@+id/developersbtn"
@@ -85,9 +83,7 @@
             app:checkedIconTint="@color/white"
             app:icon="@drawable/android_logo"
             app:iconTint="@color/white"
-            app:shapeAppearanceOverlay="@style/roundedButtonShape"
-            tools:layout_editor_absoluteX="160dp"
-            tools:layout_editor_absoluteY="218dp" />
+            app:shapeAppearanceOverlay="@style/roundedButtonShape"/>
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
@@ -95,7 +91,6 @@
         android:id="@+id/flfragmentaboutus"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
