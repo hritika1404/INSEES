@@ -53,6 +53,8 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
 
         viewPager = requireActivity().findViewById(R.id.viewPager)
 
+        viewPager.currentItem = 0
+
         setUpViews(viewModel.userData.toString())
 
         viewModel.userData.observe(viewLifecycleOwner){
@@ -84,7 +86,6 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
                     binding.scrollViewHome.visibility = View.VISIBLE
                 }
             }
-
             binding.cardViewStudyMaterials.setOnClickListener{
                 viewPager.currentItem = 1
         }
@@ -227,7 +228,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         val swipe = object : Swipe() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position = viewHolder.adapterPosition
+                val position = viewHolder.layoutPosition
                 val task = homeAdapter.getItem(position)
                 if (direction == ItemTouchHelper.LEFT) {
                     GlobalScope.launch {
