@@ -18,6 +18,9 @@
         <argument
             android:name="selected_semester"
             app:argType="string" />
+        <action
+            android:id="@+id/action_semesterFragment_to_yearFragment"
+            app:destination="@id/yearFragment" />
     </fragment>
     <dialog
         android:id="@+id/popUpFragment"
@@ -28,7 +31,12 @@
         android:id="@+id/homeFragment"
         android:name="com.example.insees.Fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/viewPagerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/inseesAboutInseesFragment"
         android:name="com.example.insees.Fragments.AboutMembersFragment"
