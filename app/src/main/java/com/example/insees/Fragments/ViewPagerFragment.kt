@@ -74,7 +74,11 @@ class ViewPagerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                if(viewPager.currentItem != 0)
                 viewPager.currentItem = 0
+                else{
+                    requireActivity().finish()
+                }
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
