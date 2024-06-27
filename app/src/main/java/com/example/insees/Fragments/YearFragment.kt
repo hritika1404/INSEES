@@ -35,6 +35,7 @@ class YearFragment : Fragment(){
     private lateinit var selectedSemester: String
     private lateinit var storageRef: StorageReference
     private lateinit var downloadUrl: String
+    private lateinit var bottomNavigationView : BottomNavigationView
     private var years: MutableList<String> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,9 +52,7 @@ class YearFragment : Fragment(){
     ): View {
         binding = FragmentYearListBinding.inflate(inflater,container,false)
         subjectListView = binding.subjectsList
-
         fetchDataAndSetupAdapter()
-
         return binding.root
     }
 
@@ -61,17 +60,16 @@ class YearFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         setupListView()
-        val bottomNavigationView = requireActivity().findViewById<BottomNavigationView>(R.id.bvNavBar)
-        bottomNavigationView.visibility = View.GONE
+        bottomNavigationView = requireActivity().findViewById(R.id.bvNavBar)
 
         binding.btnSubjectBack.setOnClickListener {
             findNavController().navigateUp()
-            bottomNavigationView.visibility = View.VISIBLE
         }
     }
 
     override fun onResume() {
         super.onResume()
+        bottomNavigationView.visibility = View.GONE
         fetchDataAndSetupAdapter()
     }
 
