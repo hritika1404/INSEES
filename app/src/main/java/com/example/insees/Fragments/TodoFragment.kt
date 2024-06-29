@@ -306,9 +306,14 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener {
 
     private fun isDateValid(todoDate: String): Boolean {
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val currentDate = sdf.format(Calendar.getInstance().time)
-        val selectedDate = sdf.format(sdf.parse(todoDate) ?: return false)
-        return selectedDate >= currentDate
+        val currentDate = Calendar.getInstance()
+        val selectedDate = Calendar.getInstance().apply {
+            time = sdf.parse(todoDate) ?: return false
+        }
+
+        return !selectedDate.before(currentDate) &&
+                (selectedDate.get(Calendar.MONTH) >= currentDate.get(Calendar.MONTH) ||
+                        selectedDate.get(Calendar.YEAR) >= currentDate.get(Calendar.YEAR))
     }
 
     @OptIn(DelicateCoroutinesApi::class)
