@@ -111,7 +111,8 @@ class TodoFragment : Fragment(), DialogAddBtnClickListener {
             val name = "Task Reminder Channel"
             val descriptionText = "Channel for Task Reminders"
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val channel = NotificationChannel("task_reminder_channel", name, importance).apply {
+            val channel = NotificationChannel("task_reminder_channel", name, importance)
+                .apply {
                 description = descriptionText
             }
             val notificationManager: NotificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
