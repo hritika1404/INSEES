@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Environment
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -89,7 +88,7 @@ class YearFragment : Fragment(){
         lifecycleScope.launch {
             years = getYears(selectedSemester)
 
-            val adapter = YearAdapter(requireContext(), years.toTypedArray())
+            val adapter = context?.let { YearAdapter(it, years.toTypedArray()) }
             subjectListView.adapter = adapter
         }
     }
@@ -129,7 +128,6 @@ class YearFragment : Fragment(){
 
         if(fileName!=null) {
             val file = File(downloadDir, fileName)
-            Log.d("abcde",fileName)
 
             if (file.exists()) {
                 openPdf(file)
@@ -137,14 +135,13 @@ class YearFragment : Fragment(){
         }else{
             storageRef.listAll()
                 .addOnSuccessListener { listResult ->
-                    Log.d("abcdefg",selectedYear)
+
                     listResult.items.firstOrNull()?.let { fileRef ->
                         fileName = fileRef.name
-                        Log.d("abcdef", fileName!!)
 
                         binding.progressBar.visibility = View.VISIBLE
                         fileRef.downloadUrl.addOnCompleteListener {
-                            if (it.isSuccessful) {
+                            if (it.isSuccessful ) {
                                 downloadUrl = it.result.toString()
                                 findNavController().navigate(
                                     R.id.action_yearFragment_to_pdfViewerFragment,
@@ -159,7 +156,7 @@ class YearFragment : Fragment(){
                             }
                         }
                     }?.addOnFailureListener { exception ->
-                        Log.d("abcdefgh", selectedYear)
+
                         Toast.makeText(
                             context,
                             "Error getting file: ${exception.message}",
