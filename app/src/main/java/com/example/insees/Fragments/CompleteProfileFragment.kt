@@ -39,7 +39,7 @@ class CompleteProfileFragment : Fragment() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<String>
     private lateinit var database: FirebaseDatabase
-    private lateinit var profilePhoto: String
+    private var profilePhoto: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +55,7 @@ class CompleteProfileFragment : Fragment() {
         database = FirebaseManager.getFirebaseDatabase()
 
         requestPermissions()
+
         val email = requireArguments().getString("email")!!
         val password = requireArguments().getString("password")!!
 
@@ -100,12 +101,11 @@ class CompleteProfileFragment : Fragment() {
 
                     auth.currentUser?.sendEmailVerification()?.addOnSuccessListener {
                         Toast.makeText(requireContext(), "Please Verify Your Email", Toast.LENGTH_SHORT).show()
-                        navController.popBackStack()
+                        navController.navigateUp()
                     }
                         ?.addOnFailureListener {
                             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
                         }
-
 //                    val intent = Intent(context, HomeActivity::class.java)
 //                    startActivity(intent)
 //                    navController.navigate(R.id.action_completeProfileFragment_to_loginFragment)
