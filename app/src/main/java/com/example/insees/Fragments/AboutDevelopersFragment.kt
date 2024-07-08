@@ -19,6 +19,7 @@ import com.example.insees.BottomSheetDialogDevelopers.RishiFragment
 import com.example.insees.BottomSheetDialogDevelopers.SudipFragment
 import com.example.insees.R
 import com.example.insees.databinding.FragmentAboutDevelopersBinding
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import java.io.FileOutputStream
@@ -42,31 +43,34 @@ class AboutDevelopersFragment : Fragment() {
 
         getImages()
 
-        val bottomSheetSudip = SudipFragment()
-        val bottomSheetAnkit = AnkitFragment()
-        val bottomSheetRishi = RishiFragment()
-        val bottomsheetBishal = BishalFragment()
-
         binding.btnSudip.setOnClickListener {
-            bottomSheetSudip.show(childFragmentManager, "BottomSheetDialog")
+            showFragment(SudipFragment(), "SudipFragment")
         }
 
         binding.btnAnkit.setOnClickListener {
-            bottomSheetAnkit.show(childFragmentManager, "BottomSheetDialog")
+            showFragment(AnkitFragment(), "AnkitFragment")
         }
 
         binding.btnRishi.setOnClickListener {
-            bottomSheetRishi.show(childFragmentManager, "BottomSheetDialog")
+            showFragment(RishiFragment(), "RishiFragment")
         }
 
         binding.btnBishal.setOnClickListener {
-            bottomsheetBishal.show(childFragmentManager, "BottomSheetDialog")
+            showFragment(BishalFragment(), "BishalFragment")
+        }
+    }
+
+    private fun showFragment(fragment: BottomSheetDialogFragment, tag: String) {
+        val fragmentManager = childFragmentManager
+        val existingFragment = fragmentManager.findFragmentByTag(tag)
+        if (existingFragment == null) {
+            fragment.show(fragmentManager, tag)
         }
     }
 
     private fun getImages() {
         loadImage("images/sudip.jpg", binding.sudipImage, "sudip.jpg")
-        loadImage("images/ankit.jpg", binding.ankitImage, "ankit.jpg")
+        loadImage("inseesimages/ankit.png", binding.ankitImage, "ankit.png")
         loadImage("images/rishi.jpg", binding.rishiImage, "rishi.jpg")
         loadImage("images/bishal.jpg", binding.bishalImage, "bishal.jpg")
     }
