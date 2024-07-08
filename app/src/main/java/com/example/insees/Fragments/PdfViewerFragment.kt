@@ -73,7 +73,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
     private fun loadPdf(){
 
         lifecycleScope.launch(Dispatchers.IO) {
-            Log.d("abcd", downloadUrl)
+
             val inputStream = URL(downloadUrl).openStream()
             withContext(Dispatchers.Main) {
                 binding.pdfView.fromStream(inputStream).onRender { pages, pageWidth, pageHeight ->
