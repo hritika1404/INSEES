@@ -3,18 +3,19 @@ package com.example.insees.Fragments
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.example.insees.BottomSheetDialogDevelopers.AnkitFragment
 import com.example.insees.BottomSheetDialogDevelopers.BishalFragment
+import com.example.insees.BottomSheetDialogDevelopers.RajdeepFragment
 import com.example.insees.BottomSheetDialogDevelopers.RishiFragment
 import com.example.insees.BottomSheetDialogDevelopers.SudipFragment
 import com.example.insees.R
@@ -58,6 +59,9 @@ class AboutDevelopersFragment : Fragment() {
         binding.btnBishal.setOnClickListener {
             showFragment(BishalFragment(), "BishalFragment")
         }
+        binding.btnRajdeep.setOnClickListener {
+            showFragment(RajdeepFragment(), "RajdeepFragment")
+        }
     }
 
     private fun showFragment(fragment: BottomSheetDialogFragment, tag: String) {
@@ -73,6 +77,7 @@ class AboutDevelopersFragment : Fragment() {
         loadImage("inseesimages/ankit.png", binding.ankitImage, "ankit.png")
         loadImage("images/rishi.jpg", binding.rishiImage, "rishi.jpg")
         loadImage("images/bishal.jpg", binding.bishalImage, "bishal.jpg")
+        loadImage("images/rajdeep.jpg", binding.rajdeepImage, "rajdeep.jpg")
     }
 
     private fun loadImage(remotePath: String, imageView: ImageView, localFileName: String) {
