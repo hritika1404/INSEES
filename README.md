@@ -51,8 +51,8 @@ To get started with INSEES, follow these steps:
 
 1. **Clone the Repository**: 
    ```bash
-   git clone https://github.com/username/INSEES-Application.git
-   cd INSEES-Application
+   git clone https://github.com/hritika1404/INSEES.git
+   cd INSEES
 2. Open the Project in Android Studio
 3. Set Up Firebase
 4. Build and Run
