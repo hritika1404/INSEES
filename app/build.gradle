@@ -6,13 +6,13 @@ plugins {
 
 android {
     namespace 'com.example.insees'
-    compileSdk 34
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.example.insees"
         minSdk 24
         //noinspection EditedTargetSdkVersion
-        targetSdk 34
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -68,7 +68,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.firebase:firebase-auth'
 
-    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation ("com.github.mhiew:android-pdf-viewer:3.2.0-beta.3")
 
     implementation("io.coil-kt:coil:2.6.0")
 

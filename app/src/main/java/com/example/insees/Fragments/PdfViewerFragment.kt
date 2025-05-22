@@ -76,7 +76,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
 
             val inputStream = URL(downloadUrl).openStream()
             withContext(Dispatchers.Main) {
-                binding.pdfView.fromStream(inputStream).onRender { pages, pageWidth, pageHeight ->
+                binding.pdfView.fromStream(inputStream).onRender { pages ->
                     if (pages >= 1) {
                         binding.progressBar.visibility = View.GONE
                     }
