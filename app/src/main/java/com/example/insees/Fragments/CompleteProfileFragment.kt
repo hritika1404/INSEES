@@ -35,6 +35,7 @@ import java.lang.ref.WeakReference
 
 class CompleteProfileFragment : Fragment() {
 
+
     private lateinit var binding: FragmentCompleteProfileBinding
     private lateinit var navController: NavController
     private lateinit var auth: FirebaseAuth
