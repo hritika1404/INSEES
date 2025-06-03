@@ -139,9 +139,9 @@ class CompleteProfileFragment : Fragment() {
     private suspend fun sendLink() {
         try {
             auth.currentUser?.sendEmailVerification()?.await()
-            Toast.makeText(requireContext(), "Please verify your email", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please verify your email", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Failed to send verification email: ${e.message}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Failed to send verification email: ${e.message}", Toast.LENGTH_LONG).show()
         }
     }
 

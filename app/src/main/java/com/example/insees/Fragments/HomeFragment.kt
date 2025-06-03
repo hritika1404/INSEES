@@ -238,7 +238,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
             } else {
                 Toast.makeText(context, tasks.exception.toString(), Toast.LENGTH_SHORT).show()
             }
-            PopUpFragment().dismiss()
+//            PopUpFragment().dismiss()
         }
         updateRecyclerViewVisibility()
     }
