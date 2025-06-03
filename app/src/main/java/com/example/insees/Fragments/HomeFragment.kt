@@ -1,7 +1,10 @@
 package com.example.insees.Fragments
 
+import HomeViewModel
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +25,6 @@ import com.example.insees.Dataclasses.ToDoData
 import com.example.insees.R
 import com.example.insees.Utils.DialogAddBtnClickListener
 import com.example.insees.Utils.FirebaseManager
-import com.example.insees.Utils.HomeViewModel
 import com.example.insees.Utils.Swipe
 import com.example.insees.databinding.FragmentHomeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -77,6 +79,20 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
 
         viewModel.userName.observe(viewLifecycleOwner) {
             binding.tvHello.text = it
+        }
+
+        viewModel.profilePhoto.observe(viewLifecycleOwner) {
+            if (viewModel.profilePhoto.value != null){
+                val photoByteArray = viewModel.profilePhoto.value!!.toByteArray()
+            val bitmap = BitmapFactory.decodeByteArray(
+                photoByteArray,
+                0,
+                photoByteArray.size
+            )
+            binding.btnProfile.setImageBitmap(bitmap)
+                Log.d("Image", "Posted")
+        }
+            else Log.d("Image", "Not found")
         }
 
         registerEvents()
