@@ -74,7 +74,7 @@ class AboutDevelopersFragment : Fragment() {
 
     private fun getImages() {
         loadImage("images/sudip.jpg", binding.sudipImage, "sudip.jpg")
-        loadImage("inseesimages/ankit.png", binding.ankitImage, "ankit.png")
+        loadImage("images/ankit.jpg", binding.ankitImage, "ankit.jpg")
         loadImage("images/rishi.jpg", binding.rishiImage, "rishi.jpg")
         loadImage("images/bishal.jpg", binding.bishalImage, "bishal.jpg")
         loadImage("images/rajdeep.jpg", binding.rajdeepImage, "rajdeep.jpg")
@@ -122,7 +122,7 @@ class AboutDevelopersFragment : Fragment() {
     private fun saveImageToLocalFile(bitmap: Bitmap, file: File) {
         try {
             FileOutputStream(file).use { out ->
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 50, out)
             }
         } catch (e: IOException) {
             e.printStackTrace()
