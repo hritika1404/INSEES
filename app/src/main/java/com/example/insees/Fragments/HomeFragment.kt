@@ -82,6 +82,7 @@ class HomeFragment : Fragment(), DialogAddBtnClickListener {
         viewPager.currentItem = 0
         setUpViews()
 
+        viewModel.fetchUserName()
         viewModel.userName.observe(viewLifecycleOwner) {
             binding.tvHello.text = it
         }
