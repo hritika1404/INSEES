@@ -31,12 +31,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.insees.Fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/viewPagerFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/inseesAboutInseesFragment"
         android:name="com.example.insees.Fragments.AboutMembersFragment"
@@ -55,11 +50,6 @@
             android:id="@+id/action_inseesAboutUsFragment_to_aboutMembersFragment"
             app:destination="@id/aboutMembersFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.insees.Fragments.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/aboutMembersFragment"
         android:name="com.example.insees.Fragments.AboutDevelopersFragment"
@@ -85,10 +75,6 @@
         android:label="fragment_view_pager"
         tools:layout="@layout/fragment_view_pager" >
         <action
-            android:id="@+id/action_viewPagerFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/viewPagerFragment" />
-        <action
             android:id="@+id/action_viewPagerFragment_to_popUpFragment"
             app:destination="@id/popUpFragment"
             app:popUpTo="@id/viewPagerFragment" />
@@ -98,10 +84,6 @@
         <action
             android:id="@+id/action_viewPagerFragment_to_yearFragment"
             app:destination="@id/yearFragment"
-            app:popUpTo="@id/viewPagerFragment" />
-        <action
-            android:id="@+id/action_viewPagerFragment_to_profileFragment2"
-            app:destination="@id/profileFragment"
             app:popUpTo="@id/viewPagerFragment" />
     </fragment>
 </navigation>
