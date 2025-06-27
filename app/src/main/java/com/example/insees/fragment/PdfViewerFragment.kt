@@ -23,6 +23,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
 import java.net.URL
+import androidx.core.net.toUri
+import androidx.core.content.edit
 
 class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressListener {
 
@@ -86,7 +88,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
 
     private fun downloadPdf(downloadUrl: String?, file: File) {
         try {
-            val downloadUri = Uri.parse(downloadUrl)
+            val downloadUri = downloadUrl?.toUri()
             val request = DownloadManager.Request(downloadUri)
             request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
                 .setAllowedOverRoaming(false)
@@ -119,7 +121,7 @@ class PdfViewerFragment : Fragment(), DownloadProgressUpdater.DownloadProgressLi
                         Toast.LENGTH_SHORT
                     ).show()
                     val sharedPref = requireContext().getSharedPreferences("file_name", Context.MODE_PRIVATE)
-                    sharedPref.edit().putString("$selectedSemester $selectedYear",fileName).apply()
+                    sharedPref.edit { putString("$selectedSemester $selectedYear", fileName) }
 
                     snackbar.dismiss()
                 }

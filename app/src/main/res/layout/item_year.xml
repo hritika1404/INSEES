@@ -36,7 +36,7 @@
             android:layout_height="50sp"
             android:layout_marginTop="4dp"
             android:padding="10dp"
-            android:src="@drawable/_0_804566_white_vector_png"
+            android:src="@drawable/baseline_file_download_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
