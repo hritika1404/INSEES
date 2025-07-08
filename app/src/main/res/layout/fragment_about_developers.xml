@@ -12,13 +12,12 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:fontFamily="@font/bentham"
-        android:text="About Developers"
+        android:text="@string/meet_our_developers"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,10 +28,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintVertical_bias="0.5">
+        app:layout_constraintTop_toBottomOf="@+id/header">
 
         <RelativeLayout
             android:id="@+id/relativeLayout"
@@ -40,23 +37,12 @@
             android:layout_height="698dp"
             tools:layout_editor_absoluteY="34dp">
 
-            <TextView
-                android:id="@+id/tv_core"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20sp"
-                android:fontFamily="@font/bevietnamprosemibold"
-                android:text="Developers"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp" />
+
 
             <android.widget.GridLayout
                 android:id="@+id/grid_layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_core"
                 android:layout_marginTop="15sp"
                 android:columnCount="2"
                 android:rowCount="3">
@@ -64,16 +50,16 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Sudip"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="140dp"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
                     android:layout_column="0"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:backgroundTint="#1C595E"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -88,35 +74,33 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:background="@drawable/rounded_corners"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="center" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnamproregular"
-                            android:text="Sudip Das"
+                            android:text="@string/sudip_das"
                             android:gravity="center"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:textColor="#FFFFFF"
-                            android:textStyle="bold">
-
-                        </TextView>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Ankit"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="140dp"
                     android:layout_row="0"
                     android:layout_rowWeight="1"
                     android:layout_column="1"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:backgroundTint="#365C36"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -137,29 +121,27 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnamproregular"
-                            android:text="Ankit Kr. Barnwal"
+                            android:text="@string/ankit_kr_barnwal"
                             android:gravity="center"
                             android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold">
-
-                        </TextView>
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Rishi"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="140dp"
                     android:layout_row="1"
                     android:layout_rowWeight="1"
                     android:layout_column="0"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:backgroundTint="#17265E"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -180,28 +162,26 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnamproregular"
-                            android:text="Rishi Gorai"
+                            android:text="@string/rishi_gorai"
                             android:gravity="center"
                             android:textColor="#FFFFFF"
-                            android:textSize="16sp"
-                            android:textStyle="bold">
-
-                        </TextView>
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Bishal"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="140dp"
                     android:layout_row="1"
                     android:layout_rowWeight="1"
                     android:layout_column="1"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:backgroundTint="#502549"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -222,28 +202,26 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnamproregular"
-                            android:text="Bishal Paul Biswas"
+                            android:text="@string/bishal_paul_biswas"
                             android:gravity="center"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:textColor="#FFFFFF"
-                            android:textStyle="bold">
-
-                        </TextView>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/btn_Rajdeep"
                     android:layout_width="0dp"
-                    android:layout_height="200dp"
+                    android:layout_height="140dp"
                     android:layout_row="2"
                     android:layout_rowWeight="1"
                     android:layout_column="0"
                     android:layout_columnWeight="1"
                     android:layout_gravity="fill"
-                    android:layout_margin="8dp"
+                    android:layout_margin="4dp"
                     android:backgroundTint="#502549"
-                    app:cardCornerRadius="8dp"
-                    app:cardElevation="8dp">
+                    app:cardCornerRadius="6dp"
+                    app:cardElevation="4dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -264,13 +242,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bevietnamproregular"
-                            android:text="Rajdeep Sarkar"
+                            android:text="@string/rajdeep_sarkar"
                             android:gravity="center"
-                            android:textSize="16sp"
+                            android:textSize="13sp"
                             android:textColor="#FFFFFF"
-                            android:textStyle="bold">
-
-                        </TextView>
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </android.widget.GridLayout>

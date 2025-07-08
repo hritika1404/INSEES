@@ -7,6 +7,9 @@
     <color name="theme">#353535</color>
     <color name="bottomNav">#704CD9</color>
 
+    <color name="fab_bg">#6F4BD7</color> <!-- Same as purpleblue -->
+    <color name="fab_icon">#FFFFFF</color> <!-- White icon -->
+
     <!-- Red Shades -->
     <color name="darkRed">#DF392E</color>
     <color name="mediumRed">#F44336</color>
