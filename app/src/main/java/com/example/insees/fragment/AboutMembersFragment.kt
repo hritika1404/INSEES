@@ -88,7 +88,6 @@ class AboutMembersFragment : Fragment() {
         binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
 
         lifecycleScope.launch{
-
             loadMembers()
         }
     }
